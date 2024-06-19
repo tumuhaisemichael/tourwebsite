@@ -461,41 +461,68 @@
       </div><!-- End MPE Box -->
     </div><!-- End Row -->
 
-    <div class="slider-container",>
-      <div class="slider">
-        <img src="assets/img/m1.jpg" alt="Image 1">
-        <img src="assets/img/m2.jpg" alt="Image 2">
-        <img src="assets/img/m3.jpg" alt="Image 3">
-        <img src="assets/img/m4.jpg" alt="Image 4">
-        <img src="assets/img/m5.jpg" alt="Image 5">
-        <img src="assets/img/a1.jpg" alt="Image 6">
-        <img src="assets/img/a2.jpg" alt="Image 7">
+    <div class="slider-container">
+      <div class="text left-text">Additional Tips:
+        Install GitLens Extension: This provides additional Git functionality and visualization within VS Code.
+        Branching and Merging: Use Git features like branching (git branch) and merging (git merge) to manage your development workflow.
+        By following these steps, you can create a repository on GitHub and upload your project using VS Code, managing your code versions effectively through Git.</div>
+      <div class="slider-wrapper">
+        <div class="slider">
+          <img src="assets/img/m1.jpg" alt="Image 1">
+          <img src="assets/img/m2.jpg" alt="Image 2">
+          <img src="assets/img/m3.jpg" alt="Image 3">
+          <img src="assets/img/m4.jpg" alt="Image 4">
+          <img src="assets/img/m5.jpg" alt="Image 5">
+          <!-- <img src="assets/img/a1.jpg" alt="Image 6"> -->
+          <img src="assets/img/a2.jpg" alt="Image 7">
+        </div>
+        <!-- Navigation arrows -->
+        <button class="arrow prev" onclick="moveSlider(-1)">&#9664;</button>
+        <button class="arrow next" onclick="moveSlider(1)">&#9654;</button>
       </div>
-      <!-- Navigation arrows -->
-      <button class="arrow prev" onclick="moveSlider(-1)">◄</button>
-      <button class="arrow next" onclick="moveSlider(1)">►</button>
+      <div class="text right-text">Additional Tips:
+        Install GitLens Extension: This provides additional Git functionality and visualization within VS Code.
+        Branching and Merging: Use Git features like branching (git branch) and merging (git merge) to manage your development workflow.
+        By following these steps, you can create a repository on GitHub and upload your project using VS Code, managing your code versions effectively through Git.</div>
     </div>
     <style>
       .slider-container {
-        position: relative;
-        width: 80%;
-        max-width: 500px;
-        overflow: hidden;
-        margin: 0 auto; /* Center the slider container horizontally */
+        display: grid;
+        grid-template-columns: 1fr 2fr 1fr;
+        align-items: center;
+        width: 100%;
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 20px;
+        box-sizing: border-box;
       }
-    
+      .text-left, .text-right {
+        background-color: #f0f0f0; /* Optional: Add background color for better visibility */
+        padding: 10px;
+      }
+  
+      .text {
+        text-align: center;
+        padding: 10px;
+      }
+  
+      .slider-wrapper {
+        position: relative;
+        width: 100%;
+        overflow: hidden;
+      }
+  
       .slider {
         display: flex;
         transition: transform 0.5s ease;
       }
-    
+  
       .slider img {
         width: 100%;
-        height: auto;
+        height: 50%;
         display: block;
-        margin: 0 auto; /* Center the image horizontally */
       }
-    
+  
       .arrow {
         position: absolute;
         top: 50%;
@@ -507,34 +534,50 @@
         cursor: pointer;
         outline: none;
       }
-    
+  
       .prev {
         left: 10px;
       }
-    
+  
       .next {
         right: 10px;
+      }
+  
+      @media (max-width: 768px) {
+        .slider-container {
+          grid-template-columns: 1fr;
+          grid-template-rows: auto auto auto;
+        }
+  
+        .text {
+          order: 1;
+        }
+  
+        .slider-wrapper {
+          order: 2;
+          width: 100%;
+        }
       }
     </style>
 
 <script>
-  let slideIndex = 0;
+  let currentIndex = 0;
 
   function moveSlider(direction) {
     const slider = document.querySelector('.slider');
-    const sliderWidth = slider.clientWidth;
-    const numImages = slider.children.length;
-    
-    slideIndex += direction;
-    
-    if (slideIndex < 0) {
-      slideIndex = numImages - 1;
-    } else if (slideIndex >= numImages) {
-      slideIndex = 0;
+    const images = slider.querySelectorAll('img');
+    const totalImages = images.length;
+
+    currentIndex += direction;
+
+    if (currentIndex < 0) {
+      currentIndex = totalImages - 1;
+    } else if (currentIndex >= totalImages) {
+      currentIndex = 0;
     }
-    
-    const offset = -slideIndex * sliderWidth;
-    slider.style.transform = `translateX(${offset}px)`;
+
+    const offset = -currentIndex * 100;
+    slider.style.transform = `translateX(${offset}%)`;
   }
 </script>
 
